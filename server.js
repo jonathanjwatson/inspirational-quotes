@@ -54,8 +54,18 @@ app.post("/api/quotes", (req, res) => {
       "utf8",
       (err) => {
         if (err) {
-          return res.send("An error occurred writing your data.");
+          //   return res.send("An error occurred writing your data.");
+        //   return res.json({
+        //     message: "An error occurred adding a new quote.",
+        //     data: null,
+        //     err: true,
+        //   });
         }
+        // res.json({
+        //   message: "Successfully added new quote.",
+        //   data: arrayOfQuotes,
+        //   err: false,
+        // });
         res.json(arrayOfQuotes);
       }
     );
