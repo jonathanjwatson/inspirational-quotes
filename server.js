@@ -35,6 +35,33 @@ app.get("/api/quotes", (req, res) => {
   });
 });
 
+/**
+ * Add a new quote via a POST request
+ */
+app.post("/api/quotes", (req, res) => {
+  // Read data from the file
+  fs.readFile("./db/quotes.json", "utf8", (err, data) => {
+    if (err) {
+      return res.send("An error occurred reading your data.");
+    }
+    // Manipulate the data
+    const arrayOfQuotes = JSON.parse(data);
+    arrayOfQuotes.push(req.body);
+    // Write the data back to file
+    fs.writeFile(
+      "./db/quotes.json",
+      JSON.stringify(arrayOfQuotes),
+      "utf8",
+      (err) => {
+        if (err) {
+          return res.send("An error occurred writing your data.");
+        }
+        res.json(arrayOfQuotes);
+      }
+    );
+  });
+});
+
 // 4. Listen on that port
 app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`);
