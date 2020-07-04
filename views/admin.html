@@ -30,8 +30,34 @@
     <div class="container">
       <div class="jumbotron">
         <h1 class="display-4">My Quote Admin Page</h1>
-        <h3>My Form to add new quote will go here.</h3>
+        <form id="new-quote">
+          <div class="form-group">
+            <label for="quote">Quote</label>
+            <textarea class="form-control" id="quote"> </textarea>
+          </div>
+          <div class="form-group">
+            <label for="id">ID</label>
+            <input type="number" class="form-control" id="id" />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
       </div>
     </div>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#new-quote").on("submit", function (event) {
+          event.preventDefault();
+          //   console.log("Submitted the form!");
+          const quote = $("#quote").val();
+          const id = $("#id").val();
+          //   console.log(quote);
+          //   console.log(id);
+          $.post("/api/quotes", { quote: quote, id: id }).then((response) => {
+            console.log(response);
+            alert("You successfully added a new quote");
+          });
+        });
+      });
+    </script>
   </body>
 </html>
